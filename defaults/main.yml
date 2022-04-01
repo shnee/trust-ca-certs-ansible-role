@@ -1,0 +1,24 @@
+---
+# These packages are required for this role to work. The second layer of the
+# dict must match `ansible_os_family` of the remote host.
+dep_packages:
+  Debian: [ca-certificates]
+  RedHat: []
+
+# This is a list of certs in the format:
+# - name: <name of cert>
+#   base_64_content: <base64 encoded content of the cert file>
+#
+# The content must be in pem format and the file name must end in .crt for
+# Ubuntu.
+certs: []
+
+# The location that certs must be put before they get added to the trust. The
+# second layer of the dict must match `ansible_os_family` of the remote host.
+remote_cert_location:
+  Debian: /usr/local/share/ca-certificates
+
+# The location where certs are put after being processed. The second layer of
+# the dict must match `ansible_os_family` of the remote host.
+remote_store_cert_location:
+  Debian: /etc/ssl/certs

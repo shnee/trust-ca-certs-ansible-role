@@ -1,0 +1,7 @@
+---
+- name: Add certs to store
+  ansible.builtin.command:
+    cmd: update-ca-certificates
+  become: true
+  register: update_certs_output
+  changed_when: update_certs_output | regex_search("^[1-9]+[0-9]* added")

@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: shnee
+  description: Install CA certs to the system's trust.
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal  # 20.04
+
+  galaxy_tags:
+    - certificates
+    - ssl
+    - x509
+
+dependencies: []

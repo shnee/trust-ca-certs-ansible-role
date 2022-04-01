@@ -1,0 +1,23 @@
+---
+- name: Fail if on an unsupported distro.
+  fail:
+    msg: "{{ ansible_os_family }} family of distros is untested/unsupported."
+  when: ansible_os_family != 'Debian'
+
+- name: Install dependencies.
+  ansible.builtin.package:
+    name: "{{ dep_packages[ansible_os_family] }}"
+    state: present
+  become: true
+
+- name: Copy certs to remote machine.
+  ansible.builtin.copy:
+    dest: "{{ remote_cert_location[ansible_os_family] }}/{{ item.name }}"
+    content: "{{ item.base_64_content | b64decode }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  loop: "{{ certs }}"
+  # Add certs to the trust only if this task caused a change.
+  notify: Add certs to store
